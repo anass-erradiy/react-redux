@@ -16,16 +16,22 @@ function App() {
     ,[data])
     
   const dispatch = useDispatch() ;
-  const handleAddUser = () => {
+  const handleAddUser = (e) => {
+    e.preventDefault()
     const newUser = {name,prenom,age} ;
     dispatch(ADD(newUser))
+    setAge('')
+    setName('')
+    setPrenom('')
   }
   return (
     <div className="App">
-      <input type="text" onChange={(e) => setName(e.target.value)} placeholder='Name' />
-      <input type="text" onChange={(e) => setPrenom(e.target.value)} placeholder='Prenom' />
-      <input type="number" onChange={(e) => setAge(e.target.value)} placeholder='Age' />
-      <button onClick={handleAddUser}>add User</button>
+      <form onSubmit={handleAddUser}>
+        <input type="text" required value={name} onChange={(e) => setName(e.target.value)} placeholder='Name' />
+        <input type="text" required value={prenom} onChange={(e) => setPrenom(e.target.value)} placeholder='Prenom' />
+        <input type="number" required value={age} onChange={(e) => setAge(e.target.value)} placeholder='Age' />
+        <button type='submit' >add User</button>
+      </form>
       <div>
         <ul>
           {users.map((user,index)=><li key={index}>{user.name} / {user.prenom} / {user.age} </li>)}
